@@ -1,12 +1,10 @@
 from django.shortcuts import render_to_response
-from django.db.psycopg2 import connection
+from sharelink.linkhome.models import LinkHome as lh
 
 def index(req):
     if req.method == 'POST':
-        print req.POST
-        cursor = connection.cursor()
-        cursor.execute()
-        return render_to_response('index.html', locals())
-    else:
-        return render_to_response('index.html', {})
-
+        new_link = lh(url = req.POST['url'], title = req.POST['title'])
+        new_link.save()
+    links = lh.objects.all()
+    print links
+    return render_to_response('index.html', {'links': links})
