@@ -86,6 +86,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    # os.path.join(BASE_DIR, "static"),
+    "/home/keith/github/sharelink.club/www/",
+)
+
 TEMPLATE_DIRS = (
     os.path.dirname(__file__).join('linkhome/tmplates'),
 )
