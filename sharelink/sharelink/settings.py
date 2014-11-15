@@ -94,3 +94,5 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     os.path.dirname(__file__).join('linkhome/tmplates'),
 )
+
+APPEND_SLASH = True
