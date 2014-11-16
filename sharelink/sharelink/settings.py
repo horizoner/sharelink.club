@@ -63,7 +63,7 @@ DATABASES = {
         'HOST': 'localhost',
         'NAME': 'sharelink',
         'USER': 'keith',
-        'PASSWORD': 'keit',
+        'PASSWORD': 'keith',
     }
 }
 
@@ -94,3 +94,5 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     os.path.dirname(__file__).join('linkhome/tmplates'),
 )
+
+APPEND_SLASH = True

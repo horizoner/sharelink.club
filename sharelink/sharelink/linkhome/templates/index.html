@@ -45,7 +45,10 @@
 					<td class="table-first">链接URL</td>
 					<td><input type="text" class="in-title" name="url" placeholder="请输入URL"></td>
 				</tr>
-				<tr class="focus-show display-none"><td></td><td><input type="submit" value="提交" class="submit"></td></tr>
+				<tr class="focus-show display-none"><td></td>
+                    <!-- <td><input type="submit" value="提交" class="submit"></td> -->
+                    <td><button id='submit' class="submit">提交</button></td>
+                </tr>
 			</tbody>
 		</table>
 		</form>
@@ -90,4 +93,30 @@
 </body>
 <script src="{% static "scripts/jquery-1.10.2.min.js" %}" type="text/javascript"></script>
 <script src="{% static "scripts/home.js" %}" type="text/javascript"></script>
+<script>
+    $('#submit').click(function(e) {
+        e.preventDefault()        
+        var title = $('input[name="title"]').val()
+        var url = $('input[name="url"]').val()
+
+        if (!title && !url) {
+            alert('Can not be empty')
+            return false
+        } else {
+            postData(title, url)    
+        }
+    })
+
+    function postData(title, url) {
+        $.post('newlink/', {'title': title, 'url': url}, function(data) {
+            console.log(data)
+            if (data.success) {
+                alert('ok')
+            } else {
+                alert('error')         
+                console.log(data.error)
+            }
+        }, 'json') 
+    }
+</script>
 </html>
