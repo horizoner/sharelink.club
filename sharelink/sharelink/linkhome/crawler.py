@@ -1,6 +1,6 @@
 import threading
 
-class Crawer(object):
+class Crawler(object):
     url = None
 
     def __init__(self, url):

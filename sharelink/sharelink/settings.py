@@ -63,7 +63,7 @@ DATABASES = {
         'HOST': 'localhost',
         'NAME': 'sharelink',
         'USER': 'keith',
-        'PASSWORD': 'keit',
+        'PASSWORD': 'keith',
     }
 }
 
