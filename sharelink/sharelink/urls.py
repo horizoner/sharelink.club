@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
-from sharelink.linkhome.views import index, add_link, get_snapshot
+from sharelink.links.views import index, add_link, get_snapshot
 
 urlpatterns = patterns('',
     # Examples:

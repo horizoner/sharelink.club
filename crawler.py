@@ -60,9 +60,12 @@ class DbHelper(object):
         self.cursor = db.cursor()
 
     def query(self):
-        sql = "SELECT url from linkhome_linkhome limit 5"
+        sql = "SELECT id, url from links_links limit 5"
         self.cursor.execute(sql)
         return self.cursor.fetchall()
+
+    def update_img(path):
+        pass
 
 if __name__ == '__main__':
     urls = None

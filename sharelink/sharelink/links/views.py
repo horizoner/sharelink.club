@@ -3,8 +3,8 @@ import urllib2
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 
-from sharelink.linkhome.models import LinkHome as lh
-from sharelink.linkhome.crawler import Crawler
+from sharelink.links.models import Links as lh
+# from sharelink.links.crawler import Crawler
 
 def index(req):
     links = lh.objects.all()
@@ -64,7 +64,29 @@ def crawler(req):
 def get_snapshot(req):
     # url_id = int(req.POST.get('id'))
     url_id = 1
-    row = lh.objects.get(id = url_id)
+    try: 
+        # row = lh.objects.get(url = 'http://www.baidu.com') 
+        row = lh.objects.all()
+    except Exception, e:
+        print 'Error: ', e
+        row = e
     # row = lh.objects.all()
-    print row['img']
+    print type(row)
     return HttpResponse(row)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

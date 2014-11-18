@@ -36,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sharelink.linkhome',
+    'sharelink.links',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -92,7 +92,7 @@ STATICFILES_DIRS = (
 )
 
 TEMPLATE_DIRS = (
-    os.path.dirname(__file__).join('linkhome/tmplates'),
+    os.path.dirname(__file__).join('links/tmplates'),
 )
 
 APPEND_SLASH = True
