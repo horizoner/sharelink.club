@@ -1,26 +1,23 @@
 $(function(){
 	//显示影藏输入
 	$("#content-table").hover(function(){
-		$(".focus-show").stop(false,true).show("100");
+		$(".focus-show").stop(false,true).show("2000");
 	},function(){
-		$(".focus-show").stop(false,true).hide("100");
+		$(".focus-show").stop(false,true).hide("2000");
 	});
 
 	//显示图片
 	$(".part-explain").hover(function(){
-		//String.prototype.Right = function(i) { //为String对象增加一个Right方法
-        //return this.slice(this.length - i,this.length);}; //返回值为 以“该字符串长度减i”为起始 到 该字符串末尾 的截取字符串
-		//var urlstr = $(this).attr("href").Right(8);
-		if (!$(this).attr("imgsrc")) {
-			$.post(,{},function(data){
+		if (!$(this).attr("imgSrc")) {
+			$.post(url,{"url":$(this).attr("href")},function(data){
 				if(data.success) {
-					$("#part-url-show").find("img").attr("src","data:image/gif;base64,"+imgurlbase64);//新添加的图片
+					$("#part-url-show").find("img").attr("src",data.imgSrc);//新添加的图片
 				}else{
 					alert("获取图片失败！");
 				}
-			})
+			},"json")
 		} else {
-			$("#part-url-show").find("img").attr("src","images/"+imgurl);//以前的图片	
+			$("#part-url-show").find("img").attr("src",$(this).attr("imgSrc"));//以前的图片	
 		}
 		//$("#part-url-show").find("img").attr("src","data:image/gif;base64,"+imgurlbase64);//新添加的图片
 	    //$("#part-url-show").show();
@@ -77,7 +74,7 @@ $(function(){
 	                	$("#dia-log").find("h1").text("已提交");
 	                    $("#dia-log").find("img").hide();
 	                    $("#dia-log").hide(2000);
-	                    var firpart = '<tbody><tr><td align="right" valign="top" class="part-number">1.</td><td><center><a id="part-up" href="javascript:void(0)"><div class="votearrow" title="upvote"></div></a><span class="part-down"></span></center></td><td class="title"><a imgsrc="" href="'
+	                    var firpart = '<tbody><tr><td align="right" valign="top" class="part-number">*.</td><td><center><a id="part-up" href="javascript:void(0)"><div class="votearrow" title="upvote"></div></a><span class="part-down"></span></center></td><td class="title"><a imgSrc="" href="'
 		                    +url+
 		                    '"class="part-explain" target="_blank">'
 		                    +title+
@@ -106,17 +103,18 @@ $(function(){
 	    if ($(window).scrollTop()==$(document).height()-$(window).height()){
 	        $.ajax({
 		        type:"post",
-		        data:$("tbody:last").find(".part-number").text().substring(0,$("tbody:last").find(".part-number").text().length-1),
+		        data:$("tbody:last").attr("id"),
 		        url:"",
 		        dataType:"json",
 		        success:function(data){
 		        	var i = 0;
-		        	var laspart = '<tbody><tr><td align="right" valign="top" class="part-number">1.</td><td><center><a id="part-up" href="javascript:void(0)"><div class="votearrow" title="upvote"></div></a> <span class="part-down"></span></center></td><td class="title"><a href="http://www.baidu.com" class="part-explain" target="_blank" imgsrc="">dsdmsfmmgm</a> <span class="part-comhead">(pasadenastarnews.com)</span></td></tr><tr><td colspan="2"></td><td class="part-subtext"><span class="part-score">59 points</span> by <a href="#">jseliger</a> 1 hour ago | <a href="#">13 comments</a></td></tr><tr style="height:20px"></tr></tbody>';
+		        	var laspart = '<tbody><tr><td align="right" valign="top" class="part-number">1.</td><td><center><a id="part-up" href="javascript:void(0)"><div class="votearrow" title="upvote"></div></a> <span class="part-down"></span></center></td><td class="title"><a href="http://www.baidu.com" class="part-explain" target="_blank" imgSrc="">dsdmsfmmgm</a> <span class="part-comhead">(pasadenastarnews.com)</span></td></tr><tr><td colspan="2"></td><td class="part-subtext"><span class="part-score">59 points</span> by <a href="#">jseliger</a> 1 hour ago | <a href="#">13 comments</a></td></tr><tr style="height:20px"></tr></tbody>';
                     for (var i = 0; i < 15; i++) {
                     		if (i < data.content.length) {
 	                    	$(".cont-part").append(laspart);
 	                    	$("tbody:last").find(".part-explain").text(data.content[i].title);
 	                    	$("tbody:last").find(".part-explain").attr("href",data.content[i].urlpart);
+	                    	$("tbody:last").find(".part-explain").attr("imgSrc",data.content[i].imgSrc);
 							$("tbody:last").find(".part-comhead").text(data.content[i].urlpart);
 	                    };
                     };	
@@ -128,7 +126,12 @@ $(function(){
                 }
 
 		    });
-	    }
-
+            //写入前面的序号
+            var panu = $(".part-number").closest("tbody").not(".mark");
+            for (var i = 0; i < panu.length; i++) {
+                var panucon=i+1+".";
+                panu.eq(i).find(".part-number").text(panucon);
+            };
+	    };
 	});
 })
